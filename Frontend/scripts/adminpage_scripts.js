@@ -40,7 +40,7 @@ $(document).ready(function () {
                 <td>${user.cla_name}</td>
                 <td>${new Date(user.cli_register_date).toLocaleDateString()}</td>
                 <td>
-                  <button class="btn btn-primary btn-remove" data-id="${user.cli_id}">
+                  <button class="btn btn-danger" data-id="${user.cli_id}">
                     Remover
                   </button>
                 </td>
