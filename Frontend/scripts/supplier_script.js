@@ -41,7 +41,7 @@ $(document).ready(function () {
           });
   
           // Adicionar evento de clique aos botões "Remover"
-          $(".btn-remove").click(function () {
+          $(document).on("click", ".btn-danger", function () {
             const orderId = $(this).data("id");
             removeOrder(orderId);
           });

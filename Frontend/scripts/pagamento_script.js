@@ -43,23 +43,13 @@ $(document).ready(function () {
   });
 
   // Formatação dinâmica para Código Postal (####-###)
-  $("#codigopostalinput").on("input", function () {
-    let input = $(this).val().replace(/\D/g, ""); // Remove tudo que não for número
-    if (input.length > 4) {
-      $(this).val(input.substring(0, 4) + "-" + input.substring(4, 7)); // Formata como ####-###
-    } else {
-      $(this).val(input);
-    }
-  });
+  
 
   // Validações para ocultar erros automaticamente ao digitar e cumprir o padrão
   validateFieldOnPattern("#nameinput", "#alert", value => value.trim() !== ""); // Primeiro Nome
   validateFieldOnPattern("#lastnameinput", "#alert2", value => value.trim() !== ""); // Último Nome
   validateFieldOnPattern("#cardnumberinput", "#alert3", value => /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/.test(value)); // Número do Cartão
   validateFieldOnPattern("#cardpininput", "#alert4", value => /^\d{3}$/.test(value)); // PIN do Cartão
-  validateFieldOnPattern("#cidadeinput", "#alert5", value => value.trim() !== ""); // Cidade
-  validateFieldOnPattern("#distritoinput", "#alert6", value => value !== ""); // Distrito
-  validateFieldOnPattern("#codigopostalinput", "#alert7", value => /^\d{4}-\d{3}$/.test(value)); // Código Postal
   validateFieldOnPattern("#invalidCheck", "#alert8", value => $("#invalidCheck").is(":checked")); // Aceitar termos
 
   // Validação no botão "Pagar"
@@ -70,9 +60,6 @@ $(document).ready(function () {
     const ultimoNome = $("#lastnameinput").val().trim();
     const numeroCartao = $("#cardnumberinput").val().trim();
     const pinCartao = $("#cardpininput").val().trim();
-    const cidade = $("#cidadeinput").val().trim();
-    const distrito = $("#distritoinput").val();
-    const codigoPostal = $("#codigopostalinput").val().trim();
     const termosAceitos = $("#invalidCheck").is(":checked");
 
     // Resetar mensagens de erro
@@ -99,20 +86,7 @@ $(document).ready(function () {
       isValid = false;
     }
 
-    if (!cidade) {
-      $("#alert5").show();
-      isValid = false;
-    }
-
-    if (!distrito) {
-      $("#alert6").show();
-      isValid = false;
-    }
-
-    if (!codigoPostal.match(/^\d{4}-\d{3}$/)) {
-      $("#alert7").show();
-      isValid = false;
-    }
+    
 
     if (!termosAceitos) {
       $("#alert8").show();

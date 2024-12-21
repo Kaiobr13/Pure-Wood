@@ -23,12 +23,12 @@ $(document).ready(function () {
         success: function (response) {
           // Limpar a tabela antes de adicionar os dados
           $("#usersTable tbody").empty();
-  
+        
           // Filtrar os usuários para excluir o logado
           const filteredUsers = response.data.filter(
             (user) => user.cli_id !== parseInt(loggedUserId)
           );
-  
+        
           // Iterar sobre os usuários filtrados e criar as linhas da tabela
           filteredUsers.forEach((user, index) => {
             const userRow = `
@@ -48,13 +48,14 @@ $(document).ready(function () {
             `;
             $("#usersTable tbody").append(userRow);
           });
-  
-          // Adicionar evento de clique aos botões "Remover"
-          $(".btn-remove").click(function () {
+        
+          // Delegação de evento para os botões "Remover"
+          $(document).on("click", ".btn-danger", function () {
             const userId = $(this).data("id");
             removeUser(userId);
           });
         },
+        
         error: function (error) {
           console.error("Erro ao carregar usuários:", error);
           alert("Ocorreu um erro ao carregar os usuários.");
