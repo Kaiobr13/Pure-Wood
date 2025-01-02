@@ -2,7 +2,7 @@ services:
   ai1:
     image: python:latest
     deploy:
-      replicas: 1
+      replicas: 2
     restart: always
     ports:
       - "3050:3000"
@@ -12,7 +12,7 @@ services:
   bd:
     image: mysql:latest
     deploy:
-      replicas: 1
+      replicas: 2
     ports:
       - "3307:3306"
     environment:
@@ -31,7 +31,7 @@ services:
     ports:
       - "3010:3000"
     deploy:
-      replicas: 1
+      replicas: 2
 
   api1:
     build:
@@ -40,7 +40,7 @@ services:
     ports:
       - "3000:3000"
     deploy:
-      replicas: 1
+      replicas: 2
 
 volumes:
   mysql_data:
