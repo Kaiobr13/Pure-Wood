@@ -1,3 +1,0 @@
-FROM httpd:latest
-WORKDIR /usr/src/app
-COPY . /usr/local/apache2/htdocs/

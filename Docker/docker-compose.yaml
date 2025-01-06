@@ -1,46 +1,59 @@
 services:
-  ai1:
+  ai:
     image: python:latest
     deploy:
       replicas: 2
     restart: always
-    ports:
-      - "3050:3000"
+#    ports:
+#      - "3050:3000"
     volumes:
-      - /Pure-Wood/AI 
+      - /Pure-Wood/AI
+    networks:
+      - app-network
+     
 
-  bd:
+  db:
     image: mysql:latest
     deploy:
       replicas: 2
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: 129034kbs
-      MYSQL_DATABASE: pure_wood
-      MYSQL_USER: pure_wood
-      MYSQL_PASSWORD: 129034kbs
+#    ports:
+#      - "3307:3306"
+    environment:                                       # Passwords removed for security reasons
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: 
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
     volumes:
       - ./../Database/init:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
 
   webapp:
     build:
       context: ../Frontend
       dockerfile: Dockerfile
-    ports:
-      - "3010:3000"
+#   ports:
+#     - "3010:3000"
     deploy:
       replicas: 2
+    networks:
+      - app-network
 
-  api1:
+  api:
     build:
       context: ../Api/src/
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+#   ports:
+#     - "3000:3000"
     deploy:
       replicas: 2
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
