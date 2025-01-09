@@ -1,10 +1,13 @@
 services:
   ai:
+    build:
+      context: ../AI
+      dockerfile: Dockerfile
     image: python:latest
     deploy:
       replicas: 2
     restart: always
-     ports:
+    ports:
        - "3050:3000"
     volumes:
       - /Pure-Wood/AI
@@ -16,7 +19,7 @@ services:
     image: mysql:latest
     deploy:
       replicas: 2
-     ports:
+    ports:
        - "3307:3306"
     environment:                                       # Passwords removed for security reasons
       MYSQL_ROOT_PASSWORD: 
@@ -60,7 +63,7 @@ services:
       - ../html5up-stellar/:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - node
+      - api
 
 volumes:
   mysql_data:

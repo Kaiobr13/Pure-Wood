@@ -1,0 +1,4 @@
+FROM python:3.9.13-slim-buster
+WORKDIR /app
+COPY . .
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
