@@ -7,25 +7,20 @@ services:
     deploy:
       replicas: 2
     restart: always
-    ports:
-       - "3050:3000"
     volumes:
       - /Pure-Wood/AI
     networks:
       - app-network
-     
 
   db:
     image: mysql:latest
     deploy:
       replicas: 2
-    ports:
-       - "3307:3306"
-    environment:                                       # Passwords removed for security reasons
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_DATABASE: 
-      MYSQL_USER: 
-      MYSQL_PASSWORD: 
+    environment:
+      MYSQL_ROOT_PASSWORD: 129034kbs
+      MYSQL_DATABASE: pure_wood
+      MYSQL_USER: pure_wood
+      MYSQL_PASSWORD: 129034kbs
     volumes:
       - ./../Database/init:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
@@ -36,8 +31,6 @@ services:
     build:
       context: ../Frontend
       dockerfile: Dockerfile
-    ports:
-     - "3010:3000"
     deploy:
       replicas: 2
     networks:
@@ -47,8 +40,6 @@ services:
     build:
       context: ../Api/src/
       dockerfile: Dockerfile
-    ports:
-       - "3000:3000"
     deploy:
       replicas: 2
     networks:
@@ -61,9 +52,13 @@ services:
       - 8089:80
     volumes:
       - ../html5up-stellar/:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/nginx.conf
     depends_on:
       - api
+      - webapp
+      - ai
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
