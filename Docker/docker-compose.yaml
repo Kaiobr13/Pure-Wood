@@ -16,11 +16,11 @@ services:
     image: mysql:latest
     deploy:
       replicas: 2
-    environment:
-      MYSQL_ROOT_PASSWORD: 129034kbs
-      MYSQL_DATABASE: pure_wood
-      MYSQL_USER: pure_wood
-      MYSQL_PASSWORD: 129034kbs
+    environment:                                       # Passwords removed for security reasons
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: 
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
     volumes:
       - ./../Database/init:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
